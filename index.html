@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f7f3e8"><title>Homegrown First Years</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f3e8;color:#242a20;font:16px/1.55 "DM Sans",system-ui,sans-serif}main{width:min(100% - 32px,620px);margin:26px auto 48px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}header strong{font-size:1.05rem}.label{font-size:.79rem;letter-spacing:.09em;text-transform:uppercase;font-weight:750}.hero{padding:28px;border-radius:25px;background:#dce7cb;margin:0 0 16px}.hero h1{font:normal clamp(2.3rem,9vw,4rem)/.97 Georgia,serif;margin:10px 0 14px;letter-spacing:-.045em}.hero p{margin:0}.card{background:#fffdf7;border:1px solid #ded9ca;border-radius:22px;padding:22px;margin:14px 0}h2{font:normal 1.8rem/1.1 Georgia,serif;margin:6px 0 12px}p{margin:8px 0 12px}.small{font-size:.88rem;color:#4d5847}button,select{font:inherit;color:inherit;border-radius:12px;border:1px solid #67745b;background:#fffdf7;padding:10px 12px;min-height:44px}button{cursor:pointer}button.primary{background:#28432c;color:white;border-color:#28432c;font-weight:700}button:disabled{opacity:.7;cursor:default}:focus-visible{outline:3px solid #9e482c;outline-offset:3px}.row{display:flex;flex-wrap:wrap;gap:9px;align-items:center}.between{justify-content:space-between}button[aria-pressed=true]{background:#28432c;color:white}.day{min-width:48px}.hint{background:#f4ead6;border-radius:12px;padding:11px 14px;margin:13px 0}ol{padding-left:22px}li+li{margin-top:6px}details{margin-bottom:14px}summary{cursor:pointer;font-weight:700}footer{padding:4px 0}#status:empty{display:none}
+</style></head><body><main>
+<header><strong>Homegrown First Years</strong><span class="label">Parent pilot</span></header>
+<section class="hero"><div class="label">Two-week parent pilot</div><h1>Little moments,<br>big discoveries.</h1><p>Short, screen-free activities to do together. Use the words and language your family speaks at home.</p></section>
+<section class="card"><div class="row between"><label for="age"><strong>Choose an activity level</strong></label><select id="age"><option value="younger">Ages 3 to under 4</option><option value="older">Ages 4 to 5</option></select></div><p id="progress" class="small" aria-live="polite"></p><div id="weeks" class="row" role="group" aria-label="Choose a week"></div><p id="theme" class="small"></p><div id="days" class="row" role="group" aria-label="Choose a day"></div></section>
+<section class="card" aria-labelledby="title"><div id="meta" class="label"></div><h2 id="title"></h2><p id="goal"></p><div class="hint"><strong>What you need</strong><div id="materials"></div></div><ol id="steps"></ol><details><summary>Adapt this activity</summary><p id="adapt"></p></details><div class="row"><button id="done" class="primary" type="button"></button><button id="next" type="button">Next activity</button></div><p id="status" class="small" role="status"></p></section>
+<footer class="row between"><span class="small">Progress stays in this browser when storage is available.</span><button id="reset" type="button">Clear progress</button></footer>
+</main>
+<script>
+const activities=[
+{title:"The colour hunt",domain:"Language and observation",time:"10 min",materials:"Three large, everyday objects in different colours.",goal:"Use colour words while looking around together.",steps:["Pick an object and name its colour together.","Look around one room for something of the same colour. Pointing is enough.","Choose another colour and let your child lead the hunt."],older:"Ask your child to find two things with the same colour and describe how they differ.",adapt:"Bring the objects within reach, or compare shapes and textures instead of colours."},
+{title:"Match the socks",domain:"Early maths",time:"10 min",materials:"Three pairs of clean socks.",goal:"Notice what makes two things go together.",steps:["Spread the socks on a table or mat.","Match one pair together and say what looks the same.","Invite your child to match the rest, then count the pairs together."],older:"Sort the pairs by length or pattern and ask your child to explain their rule.",adapt:"Start with two clearly different pairs. Describe the pattern aloud or compare textures."},
+{title:"Tell me what happened",domain:"Oral language",time:"10 min",materials:"A familiar event, such as getting ready this morning.",goal:"Put familiar events in order.",steps:["Talk about something you did together today.","Ask what happened first and what happened next.","Retell it together, using gestures if your child enjoys them."],older:"Invite your child to tell the story using first, next and last, then give it a title.",adapt:"Offer two choices for each part. Your child can point, gesture or use their own words."},
+{title:"Copy my rhythm",domain:"Movement and listening",time:"10 min",materials:"A place to sit or stand comfortably.",goal:"Notice and repeat a short pattern.",steps:["Tap your knees twice and invite your child to copy you.","Take turns making a short pattern.","Try the same pattern slowly, then at a comfortable quicker pace."],older:"Create a three-beat pattern with two different movements and take turns leading.",adapt:"Use quiet taps, hand signs or eye movements your child can comfortably copy."},
+{title:"How do they feel?",domain:"Social and emotional learning",time:"10 min",materials:"A favourite soft toy, or an imaginary character.",goal:"Talk about feelings and ways to help.",steps:["Pretend the toy cannot find its favourite thing.","Ask how the toy might feel. Offer two feeling words if helpful.","Ask what the toy could do next and act out one idea together."],older:"Ask what the toy could say to ask for help and whether someone else might feel differently.",adapt:"Keep the story imaginary. Your child can point to a gesture or act out an idea."},
+...[{"title":"Sort the imaginary lunch","domain":"Early maths","time":"10 min","materials":"A sheet of paper and a thick crayon, or pretend food.","goal":"Group familiar foods by one shared feature.","steps":["Draw or name four foods your family knows.","Choose two groups, such as foods we peel and foods we do not peel.","Take turns placing or naming foods in each group."],"older":"Try a different way to group the same foods. Explain your new rule.","adapt":"Use two clearly different examples. Your child can answer by pointing or naming."},{"title":"First we get ready","domain":"Oral language","time":"10 min","materials":"A familiar routine, such as getting ready to go outside.","goal":"Describe a familiar routine in order.","steps":["Pick a routine you both know.","Act out two parts of the routine together.","Ask your child to show which part comes first."],"older":"Add a third step. Mix up the order and invite your child to fix it.","adapt":"Model the steps side by side or use gestures your child can choose."},{"title":"Guess my food","domain":"Language and imagination","time":"10 min","materials":"No materials. Think of familiar foods.","goal":"Use descriptive words and listen for clues.","steps":["Think of a food your child knows.","Give one clue about its shape, colour or texture.","Let your child guess, then take turns giving clues."],"older":"Use two clues and explain which clue helped you guess.","adapt":"Offer two answers to choose from or use familiar objects instead of foods."},{"title":"Set the table together","domain":"Counting and matching","time":"10 min","materials":"Two unbreakable plates and two cloth napkins.","goal":"Match one item to each place.","steps":["Put two plates on a low table or mat.","Give each plate one napkin.","Count the plates and napkins together. Try again with one napkin missing."],"older":"Ask how many napkins you would need if one more person joined.","adapt":"Bring items within reach. Your child can tell or show you where each napkin goes."},{"title":"A kind kitchen helper","domain":"Social and emotional learning","time":"10 min","materials":"A soft toy or an imaginary character.","goal":"Practise offering help and taking turns.","steps":["Pretend the toy is setting out plates and could use some help.","Ask your child what the toy could say to ask for help.","Act it out together and swap roles."],"older":"Think of two ways to respond, including what to say if you are busy.","adapt":"Offer a short phrase your child can repeat, sign or act out."}]
+];
+const weeks=["Around our home","Food and routines"];
+const daysPerWeek=5;
+const $=id=>document.getElementById(id);
+const key="homegrown-first-years-v1";
+let state={age:"younger",day:0,done:[]};
+let canSave=true;
+try{
+ const saved=JSON.parse(localStorage.getItem(key));
+ if(saved && ["younger","older"].includes(saved.age) && Number.isInteger(saved.day) && activities[saved.day] && Array.isArray(saved.done)){
+   state={age:saved.age,day:saved.day,done:[...new Set(saved.done.filter(day=>Number.isInteger(day)&&activities[day]))]};
+ }
+}catch{}
+function save(){
+ try{localStorage.setItem(key,JSON.stringify(state));canSave=true;}
+ catch{canSave=false;}
+}
+function render(){
+ const activity=activities[state.day];
+ $("age").value=state.age;
+ const week=Math.floor(state.day/daysPerWeek);
+ const firstDay=week*daysPerWeek;
+ const weekDone=state.done.filter(day=>Math.floor(day/daysPerWeek)===week).length;
+ $("progress").textContent=weekDone+" of "+daysPerWeek+" this week · "+state.done.length+" of "+activities.length+" total";
+ $("theme").textContent=weeks[week];
+ $("weeks").replaceChildren(...weeks.map((theme,index)=>{
+  const button=document.createElement("button");
+  button.type="button";
+  button.textContent="Week "+(index+1);
+  button.setAttribute("aria-label","Week "+(index+1)+": "+theme);
+  button.setAttribute("aria-pressed",index===week);
+  button.onclick=()=>{
+   const start=index*daysPerWeek;
+   const unfinished=activities.slice(start,start+daysPerWeek).findIndex((_,offset)=>!state.done.includes(start+offset));
+   state.day=start+Math.max(0,unfinished);
+   save();
+   render();
+   $("weeks").children[index].focus();
+  };
+  return button;
+ }));
+ $("days").replaceChildren(...activities.slice(firstDay,firstDay+daysPerWeek).map((item,offset)=>{
+  const index=firstDay+offset;
+  const button=document.createElement("button");
+  button.type="button";
+  button.className="day";
+  button.textContent=(index+1)+(state.done.includes(index)?" ✓":"");
+  button.setAttribute("aria-label","Day "+(index+1)+": "+item.title+(state.done.includes(index)?", completed":""));
+  button.setAttribute("aria-pressed",index===state.day);
+  button.onclick=()=>{state.day=index;save();render();$("days").children[offset].focus();};
+  return button;
+ }));
+ $("meta").textContent="Day "+(state.day+1)+" · "+activity.domain+" · "+activity.time;
+ $("title").textContent=activity.title;
+ $("goal").textContent=activity.goal;
+ $("materials").textContent=activity.materials;
+ $("steps").replaceChildren(...[...activity.steps,...(state.age==="older"?[activity.older]:[])].map(step=>{
+   const item=document.createElement("li");item.textContent=step;return item;
+ }));
+ $("adapt").textContent=activity.adapt;
+ $("done").textContent=state.done.includes(state.day)?"Undo completion":"Mark complete";
+ $("next").textContent=state.day===daysPerWeek-1?"Start Week 2":"Next activity";
+ $("next").disabled=state.day===activities.length-1;
+ $("status").textContent=canSave?"":"Browser storage is unavailable. Progress will last for this session.";
+}
+$("age").onchange=()=>{state.age=$("age").value;save();render();};
+$("done").onclick=()=>{state.done=state.done.includes(state.day)?state.done.filter(day=>day!==state.day):[...state.done,state.day];save();render();};
+$("next").onclick=()=>{if(state.day<activities.length-1){state.day++;save();render();$("days").children[state.day%daysPerWeek].focus();}};
+$("reset").onclick=()=>{if(confirm("Clear all activity progress on this device?")){state={age:"younger",day:0,done:[]};save();render();}};
+render();
+</script></body></html>
