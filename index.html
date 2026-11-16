@@ -5,8 +5,8 @@
 </style></head><body><main>
 <header><strong>Homegrown First Years</strong><span class="label">Parent pilot</span></header>
 <section class="hero"><div class="label">Two-week parent pilot</div><h1>Little moments,<br>big discoveries.</h1><p>Short, screen-free activities to do together. Use the words and language your family speaks at home.</p></section>
-<section class="card"><div class="row between"><label for="age"><strong>Choose an activity level</strong></label><select id="age"><option value="younger">Ages 3 to under 4</option><option value="older">Ages 4 to 5</option></select></div><p id="progress" class="small" aria-live="polite"></p><div id="weeks" class="row" role="group" aria-label="Choose a week"></div><p id="theme" class="small"></p><div id="days" class="row" role="group" aria-label="Choose a day"></div></section>
-<section class="card" aria-labelledby="title"><div id="meta" class="label"></div><h2 id="title"></h2><p id="goal"></p><div class="hint"><strong>What you need</strong><div id="materials"></div></div><ol id="steps"></ol><details><summary>Adapt this activity</summary><p id="adapt"></p></details><div class="row"><button id="done" class="primary" type="button"></button><button id="next" type="button">Next activity</button></div><p id="status" class="small" role="status"></p></section>
+<section class="card"><div class="row between"><label for="age"><strong>Choose an activity level</strong></label><select id="age"><option value="toddler">Ages 2–3 (under 3)</option><option value="younger">Ages 3 to under 4</option><option value="older">Ages 4 to under 5</option><option value="schoolReady">Ages 5–6</option></select></div><p id="progress" class="small" aria-live="polite"></p><div id="weeks" class="row" role="group" aria-label="Choose a week"></div><p id="theme" class="small"></p><div id="days" class="row" role="group" aria-label="Choose a day"></div></section>
+<section class="card" aria-labelledby="title"><div id="meta" class="label"></div><h2 id="title"></h2><p id="goal"></p><div class="hint"><strong>What you need</strong><div id="materials"></div><div id="supervision" class="small" hidden>Stay with your child throughout. Use large, intact materials with no detachable small parts.</div></div><ol id="steps"></ol><details><summary>Adapt this activity</summary><p id="adapt"></p></details><div class="row"><button id="done" class="primary" type="button"></button><button id="next" type="button">Next activity</button></div><p id="status" class="small" role="status"></p></section>
 <footer class="row between"><span class="small">Progress stays in this browser when storage is available.</span><button id="reset" type="button">Clear progress</button></footer>
 </main>
 <script>
@@ -18,6 +18,19 @@ const activities=[
 {title:"How do they feel?",domain:"Social and emotional learning",time:"10 min",materials:"A favourite soft toy, or an imaginary character.",goal:"Talk about feelings and ways to help.",steps:["Pretend the toy cannot find its favourite thing.","Ask how the toy might feel. Offer two feeling words if helpful.","Ask what the toy could do next and act out one idea together."],older:"Ask what the toy could say to ask for help and whether someone else might feel differently.",adapt:"Keep the story imaginary. Your child can point to a gesture or act out an idea."},
 ...[{"title":"Sort the imaginary lunch","domain":"Early maths","time":"10 min","materials":"A sheet of paper and a thick crayon, or pretend food.","goal":"Group familiar foods by one shared feature.","steps":["Draw or name four foods your family knows.","Choose two groups, such as foods we peel and foods we do not peel.","Take turns placing or naming foods in each group."],"older":"Try a different way to group the same foods. Explain your new rule.","adapt":"Use two clearly different examples. Your child can answer by pointing or naming."},{"title":"First we get ready","domain":"Oral language","time":"10 min","materials":"A familiar routine, such as getting ready to go outside.","goal":"Describe a familiar routine in order.","steps":["Pick a routine you both know.","Act out two parts of the routine together.","Ask your child to show which part comes first."],"older":"Add a third step. Mix up the order and invite your child to fix it.","adapt":"Model the steps side by side or use gestures your child can choose."},{"title":"Guess my food","domain":"Language and imagination","time":"10 min","materials":"No materials. Think of familiar foods.","goal":"Use descriptive words and listen for clues.","steps":["Think of a food your child knows.","Give one clue about its shape, colour or texture.","Let your child guess, then take turns giving clues."],"older":"Use two clues and explain which clue helped you guess.","adapt":"Offer two answers to choose from or use familiar objects instead of foods."},{"title":"Set the table together","domain":"Counting and matching","time":"10 min","materials":"Two unbreakable plates and two cloth napkins.","goal":"Match one item to each place.","steps":["Put two plates on a low table or mat.","Give each plate one napkin.","Count the plates and napkins together. Try again with one napkin missing."],"older":"Ask how many napkins you would need if one more person joined.","adapt":"Bring items within reach. Your child can tell or show you where each napkin goes."},{"title":"A kind kitchen helper","domain":"Social and emotional learning","time":"10 min","materials":"A soft toy or an imaginary character.","goal":"Practise offering help and taking turns.","steps":["Pretend the toy is setting out plates and could use some help.","Ask your child what the toy could say to ask for help.","Act it out together and swap roles."],"older":"Think of two ways to respond, including what to say if you are busy.","adapt":"Offer a short phrase your child can repeat, sign or act out."}]
 ];
+const ageLevels=["toddler","younger","older","schoolReady"];
+const ageVariants=[
+ ["Notice one colour together.","Two large, soft items of the same colour, such as towels.","Hold up one towel and name its colour.","Offer the other towel. Point to both and say “same colour.”","Hold both at eye level if reaching is difficult.","Ask your child to find two items that match in colour but differ in shape. Then switch the rule and find two that match in shape."],
+ ["Join in with a simple match.","Two pairs of large, clean socks.","Show one sock and model putting its match beside it.","Offer two socks and invite your child to point to or hand you the match.","Start with one pair and show the match again together.","Invent a sorting rule and have the adult guess it. Find a sock that could belong to two groups and explain why."],
+ ["Connect a word or gesture with a familiar event.","No materials. Think of something you just did together.","Name one thing you did and act it out, such as waving goodbye.","Pause and invite your child to copy, point or say a word.","Offer two familiar gestures to choose from.","Draw three scenes from your story. Mix them up, put them back in order and explain what helped you decide."],
+ ["Copy a single sound or movement.","A comfortable place to sit together.","Tap your own knee once and pause.","Invite your child to copy. Take a turn copying their movement.","Try a slow hand movement or facial expression instead of a sound.","Invent a repeating two-action pattern. Stop halfway through and ask your child what comes next and how they knew."],
+ ["Hear a feeling word during pretend play.","A soft toy appropriate for your child’s age.","Make the toy wave and say “Bear is happy to see you.”","Pretend the toy is sad and offer a wave or a gentle pat to comfort it.","Use your face or voice if your child prefers to watch.","Tell the story from two characters’ points of view. Ask how each might feel and what each could say or do."],
+ ["Recognise familiar food words in pretend play.","No food or props needed.","Pretend to hold a familiar food and name it.","Invite your child to pretend to put it on a plate or name another food.","Offer two spoken choices or model the action again.","Group the same four foods in two ways. Explain where a tricky food belongs under each rule."],
+ ["Join in with one familiar action.","No materials. Sit together and pretend to get ready.","Say “Shoes on” and mime putting on a shoe.","Pause and let your child copy or show which foot comes next.","Let your child watch while you model the action slowly.","Put four steps in order. Pick two steps and discuss whether they could be swapped, and why."],
+ ["Listen to a familiar word or sound.","No food or props needed.","Name a familiar food and act out a simple clue, such as peeling a banana.","Invite your child to copy your gesture or choose between two spoken answers.","Say the answer and repeat the gesture together.","Give a riddle with three clues, including the first sound in the language you’re using. Swap roles and make a new riddle."],
+ ["Put one item in one place.","One large, unbreakable plate and one cloth napkin.","Put the plate on a mat and show where the napkin goes.","Hand your child the napkin and invite them to put it beside the plate.","Let your child point while you move the napkin.","Plan places for four pretend guests. If one leaves and two join, work out how many places you need and explain using objects or a drawing."],
+ ["Practise offering or accepting help.","An age-appropriate soft toy. Play away from the stove.","Pretend the toy needs help and say “Help, please.”","Let your child hand the toy to you or point, then say “Thank you” together.","Model the exchange without asking your child to speak.","Act out a situation where two people need help at once. Discuss what to do first, then swap roles and try a different response."]
+];
 const weeks=["Around our home","Food and routines"];
 const daysPerWeek=5;
 const $=id=>document.getElementById(id);
@@ -26,7 +39,7 @@ let state={age:"younger",day:0,done:[]};
 let canSave=true;
 try{
  const saved=JSON.parse(localStorage.getItem(key));
- if(saved && ["younger","older"].includes(saved.age) && Number.isInteger(saved.day) && activities[saved.day] && Array.isArray(saved.done)){
+ if(saved && ageLevels.includes(saved.age) && Number.isInteger(saved.day) && activities[saved.day] && Array.isArray(saved.done)){
    state={age:saved.age,day:saved.day,done:[...new Set(saved.done.filter(day=>Number.isInteger(day)&&activities[day]))]};
  }
 }catch{}
@@ -35,7 +48,14 @@ function save(){
  catch{canSave=false;}
 }
 function render(){
- const activity=activities[state.day];
+ const base=activities[state.day];
+ const [goal,materials,show,invite,adapt,challenge]=ageVariants[state.day];
+ const toddler=state.age==="toddler";
+ const activity=toddler
+  ? {...base,time:"3–5 min",goal,materials,steps:[show,invite],adapt}
+  : base;
+ const extension={older:base.older,schoolReady:challenge}[state.age];
+ $("supervision").hidden=!toddler;
  $("age").value=state.age;
  const week=Math.floor(state.day/daysPerWeek);
  const firstDay=week*daysPerWeek;
@@ -73,7 +93,7 @@ function render(){
  $("title").textContent=activity.title;
  $("goal").textContent=activity.goal;
  $("materials").textContent=activity.materials;
- $("steps").replaceChildren(...[...activity.steps,...(state.age==="older"?[activity.older]:[])].map(step=>{
+ $("steps").replaceChildren(...[...activity.steps,...(extension?[extension]:[])].map(step=>{
    const item=document.createElement("li");item.textContent=step;return item;
  }));
  $("adapt").textContent=activity.adapt;
